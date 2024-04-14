@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <style>
+    .navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar-brand {
+        font-size: 24px;
+    }
+
+    .navbar-logo {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-item {
+        margin-right: 20px;
+    }
+
+    .nav-link {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #ffc107;
+    }
+    </style>
+      <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="#" class="navbar-logo">user management</a>
+            </div>
+            <ul class="navbar-nav">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{path('app_home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{path('app_logout')}}">Logout</a>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{path('app_login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active" href="{{path('app_register')}}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+      </nav>
+        {% block body %}{% endblock %}
+    </body>
+</html>
